@@ -1,0 +1,21 @@
+{% extends 'movie/layouts/base.html' %}
+
+
+{% block content %}
+    <div style="width: 780px; height: 500px;">
+    <img style="width: 500px; 450px; object-fit: contain" class="movie_img_new" src="{{ movie.image.url }}" alt="">
+    <p class="movie_name">Название фильма : {{ movie.name }}</p>
+    <p class="movie_director">Режиссёр : {{ movie.director }}</p>
+    <p>Актеры: </p>
+    {% for actor in actors %}
+    	<p>{{ actor.name }}</p>
+    {% endfor %}
+    <p>Описание фильма: {{ movie.description }}</p>
+    
+    </div>
+{% endblock %}
+
+
+
+
+

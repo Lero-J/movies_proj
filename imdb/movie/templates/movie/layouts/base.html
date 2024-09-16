@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'base_style.css' %}">
+</head>
+<body>
+<div class="container">
+        <header class="header">
+            {% include 'movie/includes/header.html' %}
+        </header>
+
+        <main class="main">
+            {% block content %}
+
+
+
+             <div class="movies">
+             <div id="formList">
+                   <div class="list">
+
+                    {% for movie in movies %}
+                        <a href="{% url 'movie_info' movie.id %}">
+                    <div class="item">
+                             <div class="item_img">
+                                 <img src="{{ movie.image.url }}" alt="">
+                             </div>
+
+                        <div class="content">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        Название
+                                    </td>
+                                    <td>
+                                        {{ movie.name }}
+                                    </td>
+                                </tr>
+
+                                 <tr>
+                                    <td>
+                                        Режиссёр
+                                    </td>
+                                    <td>
+                                        {{ movie.director }}
+                                    </td>
+                                </tr>
+
+
+
+                            </table>
+
+                            <div style="display: flex; justify-content: center; align-items: center">
+                                <a href="{% url 'delete_movie' movie.id %}"> <button id="delete">Delete</button></a>
+                            </div>
+                        </div>
+                    </div>
+                        </a>
+
+                        {% empty %}
+                        <h1>No movies yet</h1>
+                  {% endfor %}
+                </div>
+             </div>
+
+                <div class="direction">
+                    <button id="prev"><</button>
+                    <button id="next">></button>
+                </div>
+
+
+             </div>
+
+                <div class="addmovie">
+                <h1>Добавить фильм</h1>
+                    <br>
+                    <form enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button style="width: 100px; height: 70px; border-radius: 10px;"> Save </button>
+                    </form>
+                </div>
+            {% endblock %}
+        </main>
+
+{#        <footer class="footer">#}
+{#            {% include 'movie/includes/footer.html' %}#}
+{#        </footer>#}
+
+</div>
+
+
+<script src="{% static 'scripts.js' %}">
+
+</script>
+
+</body>
+</html>
